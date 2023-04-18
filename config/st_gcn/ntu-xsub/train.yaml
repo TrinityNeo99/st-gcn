@@ -3,11 +3,11 @@ work_dir: ./work_dir/recognition/ntu-xsub/ST_GCN
 # feeder
 feeder: feeder.feeder.Feeder
 train_feeder_args:
-  data_path: ./data/NTU-RGB-D/xsub/train_data.npy
-  label_path: ./data/NTU-RGB-D/xsub/train_label.pkl
+  data_path: D:/Project/2023-GCN-action-recognize-tutorial/2023-GCN-action-recognize-tutorial/st-gcn/tools/data/NTU-RGB-D/xsub/train_data.npy
+  label_path: D:/Project/2023-GCN-action-recognize-tutorial/2023-GCN-action-recognize-tutorial/st-gcn/tools/data/NTU-RGB-D/xsub/train_label.pkl
 test_feeder_args:
-  data_path: ./data/NTU-RGB-D/xsub/val_data.npy
-  label_path: ./data/NTU-RGB-D/xsub/val_label.pkl
+  data_path: D:/Project/2023-GCN-action-recognize-tutorial/2023-GCN-action-recognize-tutorial/st-gcn/tools/data/NTU-RGB-D/xsub/val_data.npy
+  label_path: D:/Project/2023-GCN-action-recognize-tutorial/2023-GCN-action-recognize-tutorial/st-gcn/tools/data/NTU-RGB-D/xsub/val_label.pkl
 
 # model
 model: net.st_gcn.Model
@@ -23,11 +23,11 @@ model_args:
 #optim
 weight_decay: 0.0001
 base_lr: 0.1
-step: [10, 50]
+step: [ 10, 50 ]
 
 # training
-device: [0,1,2,3]
-batch_size: 64 
+device: [ 0,1,2,3 ]
+batch_size: 64
 test_batch_size: 64
 num_epoch: 80
 
