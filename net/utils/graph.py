@@ -1,4 +1,8 @@
+#  Copyright (c) 2023. IPCRC, Lab. Jiangnig Wei
+#  All rights reserved
+
 import numpy as np
+
 
 class Graph():
     """ The Graph to model the skeletons extracted by the openpose
@@ -70,8 +74,13 @@ class Graph():
             neighbor_link = [(i - 1, j - 1) for (i, j) in neighbor_1base]
             self.edge = self_link + neighbor_link
             self.center = 2
-        # elif layout=='customer settings'
-        #     pass
+        elif layout == 'coco':
+            self.num_node = 17
+            self_link = [(i, i) for i in range(self.num_node)]
+            neighbor_link = [(1, 3), (1, 0), (2, 4), (2, 0), (0, 5), (0, 6), (5, 7), (7, 9), (6, 8), (8, 10), (5, 11),
+                             (6, 12), (11, 12), (11, 13), (13, 15), (12, 14), (14, 16), (5, 6)]
+            self.edge = self_link + neighbor_link
+            self.center = 0
         else:
             raise ValueError("Do Not Exist This Layout.")
 
@@ -102,11 +111,11 @@ class Graph():
                     for j in range(self.num_node):
                         if self.hop_dis[j, i] == hop:
                             if self.hop_dis[j, self.center] == self.hop_dis[
-                                    i, self.center]:
+                                i, self.center]:
                                 a_root[j, i] = normalize_adjacency[j, i]
                             elif self.hop_dis[j, self.
-                                              center] > self.hop_dis[i, self.
-                                                                     center]:
+                                    center] > self.hop_dis[i, self.
+                                    center]:
                                 a_close[j, i] = normalize_adjacency[j, i]
                             else:
                                 a_further[j, i] = normalize_adjacency[j, i]
@@ -142,7 +151,7 @@ def normalize_digraph(A):
     Dn = np.zeros((num_node, num_node))
     for i in range(num_node):
         if Dl[i] > 0:
-            Dn[i, i] = Dl[i]**(-1)
+            Dn[i, i] = Dl[i] ** (-1)
     AD = np.dot(A, Dn)
     return AD
 
@@ -153,6 +162,6 @@ def normalize_undigraph(A):
     Dn = np.zeros((num_node, num_node))
     for i in range(num_node):
         if Dl[i] > 0:
-            Dn[i, i] = Dl[i]**(-0.5)
+            Dn[i, i] = Dl[i] ** (-0.5)
     DAD = np.dot(np.dot(Dn, A), Dn)
     return DAD

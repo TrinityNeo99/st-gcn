@@ -1,3 +1,6 @@
+#  Copyright (c) 2023. IPCRC, Lab. Jiangnig Wei
+#  All rights reserved
+
 # sys
 import os
 import sys
@@ -17,6 +20,7 @@ import time
 
 # operation
 from . import tools
+
 
 class Feeder(torch.utils.data.Dataset):
     """ Feeder for skeleton-based action recognition
@@ -51,6 +55,7 @@ class Feeder(torch.utils.data.Dataset):
         # data: N C V T M
 
         # load label
+        # self.label_path = "r'" + self.label_path + "'"
         with open(self.label_path, 'rb') as f:
             self.sample_name, self.label = pickle.load(f)
 
@@ -59,7 +64,7 @@ class Feeder(torch.utils.data.Dataset):
             self.data = np.load(self.data_path, mmap_mode='r')
         else:
             self.data = np.load(self.data_path)
-            
+
         if self.debug:
             self.label = self.label[0:100]
             self.data = self.data[0:100]
@@ -74,7 +79,7 @@ class Feeder(torch.utils.data.Dataset):
         # get data
         data_numpy = np.array(self.data[index])
         label = self.label[index]
-        
+
         # processing
         if self.random_choose:
             data_numpy = tools.random_choose(data_numpy, self.window_size)
