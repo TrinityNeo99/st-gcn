@@ -56,6 +56,9 @@ class Feeder(torch.utils.data.Dataset):
 
         # load label
         # self.label_path = "r'" + self.label_path + "'"
+        self.label_path = self.label_path.encode('gbk')
+        self.data_path = self.data_path.encode('gbk')
+        print(self.label_path)
         with open(self.label_path, 'rb') as f:
             self.sample_name, self.label = pickle.load(f)
 
