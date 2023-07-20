@@ -131,6 +131,13 @@ class Graph():
 
 
 def get_hop_distance(num_node, edge, max_hop=1):
+    '''
+
+    :param num_node:
+    :param edge:
+    :param max_hop:
+    :return:  hop_dis  记录了图中两点直接的跳数，当数值为 -inf 时，表示图中两点无可达路径
+    '''
     A = np.zeros((num_node, num_node))
     for i, j in edge:
         A[j, i] = 1

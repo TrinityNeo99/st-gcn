@@ -1,3 +1,6 @@
+#  Copyright (c) 2023. IPCRC, Lab. Jiangnig Wei
+#  All rights reserved
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -5,6 +8,7 @@ from torch.autograd import Variable
 
 from net.utils.tgcn import ConvTemporalGraphical
 from net.utils.graph import Graph
+
 
 class Model(nn.Module):
     r"""Spatial temporal graph convolutional networks.
@@ -59,7 +63,7 @@ class Model(nn.Module):
             self.edge_importance = nn.ParameterList([
                 nn.Parameter(torch.ones(self.A.size()))
                 for i in self.st_gcn_networks
-            ])
+            ])  # 定义模型可训练的参数 初始化为 1
         else:
             self.edge_importance = [1] * len(self.st_gcn_networks)
 
@@ -114,6 +118,7 @@ class Model(nn.Module):
         output = x.view(N, M, -1, t, v).permute(0, 2, 3, 4, 1)
 
         return output, feature
+
 
 class st_gcn(nn.Module):
     r"""Applies a spatial temporal graph convolution over an input graph sequence.

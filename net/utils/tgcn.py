@@ -1,10 +1,13 @@
+#  Copyright (c) 2023. IPCRC, Lab. Jiangnig Wei
+#  All rights reserved
+
 # The based unit of graph convolutional networks.
 
 import torch
 import torch.nn as nn
 
-class ConvTemporalGraphical(nn.Module):
 
+class ConvTemporalGraphical(nn.Module):
     r"""The basic module for applying a graph convolution.
 
     Args:
@@ -60,7 +63,8 @@ class ConvTemporalGraphical(nn.Module):
         x = self.conv(x)
 
         n, kc, t, v = x.size()
-        x = x.view(n, self.kernel_size, kc//self.kernel_size, t, v)
+        x = x.view(n, self.kernel_size, kc // self.kernel_size, t, v)
+        # 在k=3和v=17这两个维度上做乘法再相加，融合了"划分图的信息"和"节点关系的信息"
         x = torch.einsum('nkctv,kvw->nctw', (x, A))
 
         return x.contiguous(), A
