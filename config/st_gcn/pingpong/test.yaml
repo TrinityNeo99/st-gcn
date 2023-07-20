@@ -3,8 +3,8 @@ weights: ./models/st_gcn.ntu-xsub.pt
 # feeder
 feeder: feeder.feeder.Feeder
 test_feeder_args:
-  data_path: ./data/NTU-RGB-D/xsub/val_data.npy
-  label_path: ./data/NTU-RGB-D/xsub/val_label.pkl
+  data_path: ../dataset/2023-3-29_北体合作_示范动作/st-gcn/val_data.npy
+  label_path: ../dataset/2023-3-29_北体合作_示范动作/st-gcn/val_label.pkl
 
 # model
 model: net.st_gcn.Model
@@ -14,7 +14,7 @@ model_args:
   dropout: 0.5
   edge_importance_weighting: True
   graph_args:
-    layout: 'ntu-rgb+d'
+    layout: 'coco'
     strategy: 'spatial'
 
 # test 
