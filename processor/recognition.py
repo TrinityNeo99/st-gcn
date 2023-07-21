@@ -21,6 +21,7 @@ from torchlight import DictAction
 from torchlight import import_class
 
 from .processor import Processor
+from dataset.predict_results_ana import Analysis
 
 
 def weights_init(m):
@@ -80,6 +81,11 @@ class REC_Processor(Processor):
         hit_top_k = [l in rank[i, -k:] for i, l in enumerate(self.label)]
         accuracy = sum(hit_top_k) * 1.0 / len(hit_top_k)
         self.io.print_log('\tTop{}: {:.2f}%'.format(k, 100 * accuracy))
+
+        if k == 1:
+            top_k_pre = [rank[i, -k] for i, l in enumerate(self.label)]
+            a = Analysis()
+            a.cal_metric(top_k_pre, list(self.label), title="st-gcn top-1")
 
     def train(self):
         self.model.train()
